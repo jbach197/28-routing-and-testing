@@ -6,31 +6,33 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: {}
-    }
+      notes: {},
+    };
     this.addNote = this.addNote.bind(this);
+    this.removeNote = this.removeNote.bind(this);
   }
   
 componentDidUpdate() {
     console.log('__STATE__', this.state);
   }
 
-  addNote(note){
-    let singleNote = {
-      id: uuid,
-      editing: false,
-      completed: false,
-      content: note.content,
-      title: note.title,
-    }
-  this.setState(Object.assign(this.state.notes, note));
+  addNote(data){
+    let notes = {};
+    notes[data.id] = data;
+    this.setState({notes: Object.assign({},this.state.notes, notes)})
   }
 
+  removeNote(id) {
+    let {[id]:deleted, ...notes} = this.state.notes;
+    this.setState({notes});
+  }
+    
   render() {
     return (
       <React.Fragment>
       <h2>dashboard</h2> 
       <NoteForm addNote={this.addNote}/>
+//      <NoteList notes={this.state.notes} delete={this.removeNote}/>
       </React.Fragment>
     );
   }

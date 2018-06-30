@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid/v4';
 
 export default class NoteForm extends React.Component{
 constructor(props){
@@ -9,10 +10,13 @@ constructor(props){
 handleSubmit(e) {
   e.preventDefault();
   let note = {
+    id: uuid(),
+    editing: false,
+    complete: false,
     title: e.target.title.value,
     content: e.target.content.value,
-  }
-  console.log(note);
+  };
+ 
   this.props.addNote(note);
 }
 
@@ -25,5 +29,4 @@ handleSubmit(e) {
       </form>
     )
   }
-
 }
